@@ -15,10 +15,15 @@ RUN mkdir -p /tmp/binaries \
     && mkdir -p /opt \
     && tar -xzf /tmp/binaries/apache-jmeter-${JMETER_VERSION}.tgz -C /opt \
     && cp /tmp/binaries/${JMETER_INFLUXDB_WRITER_JAR} ${JMETER_HOME}/lib/ext/${JMETER_INFLUXDB_WRITER_JAR} \
-    && rm -rf /tmp/binaries
+    && rm -rf /tmp/binaries \
+    && mkdir /tmp/test
 
-RUN ls -al ${JMETER_HOME}/lib/ext/JMeter-InfluxDB-Writer-1.0.jar
+COPY ./rmi_keystore.jks $JMETER_BIN
+COPY ./master.sh $JMETER_BIN
+COPY ./system-info-test.jmx /tmp/test/
 
 ENV PATH $PATH:$JMETER_BIN
 
-WORKDIR	${JMETER_HOME}
+WORKDIR	${JMETER_BIN}
+
+CMD ["./master.sh"]

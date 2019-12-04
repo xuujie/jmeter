@@ -1,0 +1,7 @@
+version: "3.7"
+services:
+  jmeter-slave:
+    image: xuujie/jmeter-slave:latest
+    container_name: jmeter-slave
+    environment:
+      - REGISTRY_IP=17.82.142.191

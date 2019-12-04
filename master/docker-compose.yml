@@ -1,0 +1,7 @@
+version: "3.7"
+services:
+  jmeter-master:
+    image: xuujie/jmeter-master:latest
+    container_name: jmeter-master
+    environment:
+      - REGISTRY_IP=17.82.142.191

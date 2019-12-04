@@ -1,0 +1,7 @@
+version: "3.7"
+services:
+  jmeter-registry:
+    image: xuujie/jmeter-registry:latest
+    container_name: jmeter-registry
+    ports:
+      - 9090:9090
