@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jmeter-slave
+  labels:
+    app: jmeter-slave
+spec:
+  selector:
+    matchLabels:
+      app: jmeter-slave
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: jmeter-slave
+    spec:
+      containers:
+        - name: jmeter-slave
+          image: xuujie/jmeter-slave:latest
+          env:
+            - name: REGISTRY_URL
+              value: http://jmeter-registry-service:9090/addSlave
+          command: ["./slave.sh"]

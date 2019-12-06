@@ -8,10 +8,10 @@ echo SLAVE: $SLAVE_IP
 nohup jmeter-server &
 
 #register slave to registry
-echo REGISTRY: $REGISTRY_IP
+echo REGISTRY: $REGISTRY_URL
 while :
   do
-    echo "Registering ${SLAVE_IP} to ${REGISTRY_IP}"
-    curl -X POST http://${REGISTRY_IP}:9090/addSlave -H "Content-Type: application/json" -d "{\"ip\": \"${SLAVE_IP}\"}"
+    echo "Registering ${SLAVE_IP} to ${REGISTRY_URL}"
+    curl -X POST ${REGISTRY_URL} -H "Content-Type: application/json" -d "{\"ip\": \"${SLAVE_IP}\"}"
     sleep 10
 done

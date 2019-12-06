@@ -20,7 +20,7 @@ RUN mkdir -p /tmp/binaries \
 
 COPY ./rmi_keystore.jks $JMETER_BIN
 COPY ./master.sh $JMETER_BIN
-COPY ./system-info-test.jmx /tmp/test/
+#COPY ./system-info-test.jmx /tmp/test/
 
 ENV PATH $PATH:$JMETER_BIN
 

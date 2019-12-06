@@ -1,0 +1,103 @@
+# Volume
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: jmeter-influxdb
+  name: jmeter-influxdb
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: influxdb-creds
+type: Opaque
+data:
+  INFLUXDB_DATABASE: am1ldGVy
+  INFLUXDB_USERNAME: cm9vdA==
+  INFLUXDB_PASSWORD: cm9vdA==
+
+---
+
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jmeter-influxdb
+  labels:
+    app: jmeter-influxdb
+spec:
+  selector:
+    matchLabels:
+      app: jmeter-influxdb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jmeter-influxdb
+    spec:
+      volumes:
+        - name: var-lib-influxdb
+          persistentVolumeClaim:
+            claimName: jmeter-influxdb
+      containers:
+        - name: jmeter-influxdb
+          envFrom:
+            - secretRef:
+                name: influxdb-creds
+          env:
+            - name: INFLUXDB_GRAPHITE_ENABLED
+              value: "true"
+          image: influxdb:latest
+          ports:
+            - containerPort: 8086
+            - containerPort: 2003
+          volumeMounts:
+            - mountPath: /var/lib/influxdb
+              name: var-lib-influxdb
+
+---
+
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: jmeter-influxdb-service
+spec:
+  selector:
+    app: jmeter-influxdb
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8086
+      targetPort: 8086
+  type: LoadBalancer
+
+#---
+
+## Ingress
+#apiVersion: extensions/v1beta1
+#kind: Ingress
+#metadata:
+#  generation: 2
+#  name: jmeter-influxdb-ingress
+#  namespace: default
+#spec:
+#  rules:
+#    - host: localhost
+#      http:
+#        paths:
+#          - backend:
+#              serviceName: jmeter-influxdb-service
+#              servicePort: 8086
+#status:
+#  loadBalancer:
+#    ingress:
+#      {}

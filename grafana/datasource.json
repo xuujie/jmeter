@@ -1,0 +1,12 @@
+{
+  "name":"influxdb",
+  "type":"influxdb",
+  "url":"http://jmeter-influxdb-service:8086",
+  "access":"proxy",
+  "password":"",
+  "user":"",
+  "database":"jmeter",
+  "basicAuth":true,
+  "basicAuthUser":"root",
+  "basicAuthPassword":"root"
+}

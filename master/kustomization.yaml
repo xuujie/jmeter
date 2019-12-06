@@ -1,0 +1,4 @@
+configMapGenerator:
+- name: jmeter-test-plan
+  files:
+  - ./system-info-test.jmx

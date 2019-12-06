@@ -1,3 +1,4 @@
 docker-compose down
-./build.sh
+docker build -t xuujie/jmeter-master:latest .
+docker push xuujie/jmeter-master:latest
 docker-compose up -d

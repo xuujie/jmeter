@@ -1,3 +1,3 @@
 docker-compose down
-./build.sh
+./deploy.sh
 docker-compose up -d

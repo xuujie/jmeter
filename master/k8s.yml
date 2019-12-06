@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jmeter-master
+  labels:
+    app: jmeter-master
+spec:
+  selector:
+    matchLabels:
+      app: jmeter-master
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jmeter-master
+    spec:
+      containers:
+        - name: jmeter-master
+          image: xuujie/jmeter-master:latest
+          volumeMounts:
+            - name: config-volume
+              mountPath: /tmp/test/
+          env:
+            - name: REGISTRY_URL
+              value: http://jmeter-registry-service:9090/s
+#          command: ["./master.sh"]
+      volumes:
+        - name: config-volume
+          configMap:
+            name: jmeter-test-plan
