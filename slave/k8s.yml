@@ -20,4 +20,6 @@ spec:
           env:
             - name: REGISTRY_URL
               value: http://jmeter-registry-service:9090/addSlave
+          ports:
+            - containerPort: 1099
           command: ["./slave.sh"]
