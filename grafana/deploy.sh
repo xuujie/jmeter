@@ -1,7 +1,7 @@
 kubectl apply -f k8s.yml
 
-echo Wait for 10 seconds
-sleep 10
+echo Wait for 20 seconds for grafana to initialize
+sleep 20
 
 #create api key
 #curl -X POST http://admin:JmeterGrafana123@localhost:3000/api/auth/keys -H "Content-Type: application/json" -d "{\"name\": \"clikey\", \"role\": \"Admin\"}"
