@@ -1,5 +1,5 @@
 {
-  "name":"influxdb",
+  "name":"InfluxDB",
   "type":"influxdb",
   "url":"http://jmeter-influxdb-service:8086",
   "access":"proxy",
